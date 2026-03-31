@@ -55,7 +55,7 @@
 
             <div class="product-info">
                 <h1><?php echo $product['name']; ?></h1>
-                <div class="product-category">📋 <%= $product['category_name'] %></div>
+                <div class="product-category">📋 <?php echo $product['category_name'] ?? 'Không có'; ?></div>
 
                 <div class="product-price">
                     Giá: <?php echo number_format($product['sale_price'] ?? $product['price'], 0, ',', '.'); ?> VNĐ

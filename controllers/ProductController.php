@@ -25,12 +25,15 @@ class ProductController
     {
         $id = $_GET['id'] ?? null;
         if (!$id) {
-            return header('Location: ?c=product&a=list');
+            header('Location: ?c=product&a=list');
+            exit;
         }
 
         $product = $this->productModel->getById($id);
         if (!$product) {
-            throw new Exception('Sản phẩm không tồn tại');
+            $_SESSION['error'] = 'Sản phẩm không tồn tại';
+            header('Location: ?c=product&a=list');
+            exit;
         }
 
         return require_once PATH_VIEW . 'products/detail.php';
@@ -41,7 +44,8 @@ class ProductController
     {
         $category_id = $_GET['category_id'] ?? null;
         if (!$category_id) {
-            return header('Location: ?c=product&a=list');
+            header('Location: ?c=product&a=list');
+            exit;
         }
 
         $products = $this->productModel->getByCategory($category_id);

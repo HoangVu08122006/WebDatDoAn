@@ -31,12 +31,15 @@ class AdminUserController
     {
         $id = $_GET['id'] ?? null;
         if (!$id) {
-            return header('Location: ?c=adminUser&a=list');
+            header('Location: ?c=adminUser&a=list');
+            exit;
         }
 
         $user = $this->userModel->getById($id);
         if (!$user) {
-            throw new Exception('Người dùng không tồn tại');
+            $_SESSION['error'] = 'Người dùng không tồn tại';
+            header('Location: ?c=adminUser&a=list');
+            exit;
         }
 
         return require_once PATH_VIEW . 'admin/users/detail.php';
@@ -52,7 +55,9 @@ class AdminUserController
             $role = $_POST['role'] ?? 'user';
 
             if (empty($name) || empty($email)) {
-                throw new Exception('Tên và email không được để trống');
+                $_SESSION['error'] = 'Tên và email không được để trống';
+                header('Location: ?c=adminUser&a=edit&id=' . $id);
+                exit;
             }
 
             $this->userModel->update($id, [
@@ -62,12 +67,20 @@ class AdminUserController
             ]);
 
             $_SESSION['success'] = 'Cập nhật user thành công!';
-            return header('Location: ?c=adminUser&a=list');
+            header('Location: ?c=adminUser&a=list');
+            exit;
+        }
+
+        if (!$id) {
+            header('Location: ?c=adminUser&a=list');
+            exit;
         }
 
         $user = $this->userModel->getById($id);
         if (!$user) {
-            throw new Exception('Người dùng không tồn tại');
+            $_SESSION['error'] = 'Người dùng không tồn tại';
+            header('Location: ?c=adminUser&a=list');
+            exit;
         }
 
         return require_once PATH_VIEW . 'admin/users/edit.php';
@@ -78,15 +91,18 @@ class AdminUserController
     {
         $id = $_GET['id'] ?? null;
         if (!$id) {
-            throw new Exception('ID không hợp lệ');
+            $_SESSION['error'] = 'ID không hợp lệ';
+            header('Location: ?c=adminUser&a=list');
+            exit;
         }
 
         if ($this->userModel->delete($id)) {
             $_SESSION['success'] = 'Xóa user thành công!';
         } else {
-            throw new Exception('Xóa user thất bại');
+            $_SESSION['error'] = 'Xóa user thất bại';
         }
 
-        return header('Location: ?c=adminUser&a=list');
+        header('Location: ?c=adminUser&a=list');
+        exit;
     }
 }

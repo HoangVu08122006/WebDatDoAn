@@ -19,19 +19,24 @@ class AuthController
     public function handleLogin()
     {
         if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
-            return header('Location: ?c=auth&a=login');
+            header('Location: ?c=auth&a=login');
+            exit;
         }
 
         $email = $_POST['email'] ?? '';
         $password = $_POST['password'] ?? '';
 
         if (empty($email) || empty($password)) {
-            throw new Exception('Email và password không được để trống');
+            $_SESSION['error'] = 'Email và password không được để trống';
+            header('Location: ?c=auth&a=login');
+            exit;
         }
 
         $user = $this->userModel->login($email, $password);
         if (!$user) {
-            throw new Exception('Email hoặc password không chính xác');
+            $_SESSION['error'] = 'Email hoặc password không chính xác';
+            header('Location: ?c=auth&a=login');
+            exit;
         }
 
         // Lưu session
@@ -42,9 +47,11 @@ class AuthController
 
         // Redirect theo role
         if ($user['role'] === 'admin') {
-            return header('Location: ?c=admin&a=dashboard');
+            header('Location: ?c=adminProduct&a=list');
+        } else {
+            header('Location: ?c=product&a=list');
         }
-        return header('Location: ?c=product&a=list');
+        exit;
     }
 
     // Đăng ký
@@ -57,7 +64,8 @@ class AuthController
     public function handleRegister()
     {
         if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
-            return header('Location: ?c=auth&a=register');
+            header('Location: ?c=auth&a=register');
+            exit;
         }
 
         $name = $_POST['name'] ?? '';
@@ -66,19 +74,27 @@ class AuthController
         $confirm_password = $_POST['confirm_password'] ?? '';
 
         if (empty($name) || empty($email) || empty($password) || empty($confirm_password)) {
-            throw new Exception('Vui lòng điền đầy đủ thông tin');
+            $_SESSION['error'] = 'Vui lòng điền đầy đủ thông tin';
+            header('Location: ?c=auth&a=register');
+            exit;
         }
 
         if ($password !== $confirm_password) {
-            throw new Exception('Mật khẩu không trùng khớp');
+            $_SESSION['error'] = 'Mật khẩu không trùng khớp';
+            header('Location: ?c=auth&a=register');
+            exit;
         }
 
         if ($this->userModel->register($name, $email, $password)) {
             $_SESSION['success'] = 'Đăng ký thành công! Vui lòng đăng nhập.';
-            return header('Location: ?c=auth&a=login');
+            header('Location: ?c=auth&a=login');
+            exit;
         }
 
-        throw new Exception('Email đã tồn tại hoặc lỗi hệ thống');
+        $_SESSION['error'] = 'Email đã tồn tại hoặc lỗi hệ thống';
+        header('Location: ?c=product&a=list');
+        exit
+        exit;
     }
 
     // Đăng xuất
