@@ -4,6 +4,7 @@ class HomeController
 {
     public function index() 
     {
-        require_once PATH_VIEW_MAIN;
+        // Redirect đến trang danh sách sản phẩm
+        return header('Location: ?c=product&a=list');
     }
 }

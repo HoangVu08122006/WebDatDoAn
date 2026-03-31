@@ -20,4 +20,11 @@ require_once './configs/env.php';
 require_once './configs/helper.php';
 
 // Điều hướng
-require_once './routes/index.php';
+try {
+    require_once './routes/index.php';
+} catch (Exception $e) {
+    $_SESSION['error'] = $e->getMessage();
+    // Log error nếu cần
+    error_log($e->getMessage());
+    header('Location: ?c=product&a=list');
+}
