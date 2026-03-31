@@ -1,0 +1,33 @@
+# OS files
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+
+# Local environment
+.env.local
+*.env
+
+# Uploads
+assets/uploads/
+
+# Logs
+*.log
+logs/
+
+# Composer
+vendor/
+composer.lock
+
+# Node
+node_modules/
+npm-debug.log
+
+# Temp files
+*.tmp
+*.bak
+.cache/
