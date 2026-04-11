@@ -8,6 +8,7 @@ try {
     $controllerName = match($c) {
         'auth'          => 'AuthController',
         'product'       => 'ProductController',
+        'cart'          => 'CartController',
         'adminProduct'  => 'AdminProductController',
         'adminUser'     => 'AdminUserController',
         default         => 'HomeController'
