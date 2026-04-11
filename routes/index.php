@@ -12,6 +12,7 @@ try {
         'order'         => 'OrderController',
         'adminProduct'  => 'AdminProductController',
         'adminUser'     => 'AdminUserController',
+        'adminOrder'    => 'AdminOrderController',
         default         => 'HomeController'
     };
 

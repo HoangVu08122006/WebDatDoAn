@@ -40,6 +40,7 @@
     <div class="navbar">
         <a href="?c=adminProduct&a=list">📦 Quản lý sản phẩm</a>
         <a href="?c=adminUser&a=list">👤 Quản lý tài khoản</a>
+        <a href="?c=adminOrder&a=list">📋 Quản lý đơn hàng</a>
         <a href="?c=product&a=list">🏠 Trang chủ</a>
         <a href="?c=auth&a=logout" style="margin-left: auto;">Đăng xuất</a>
     </div>
