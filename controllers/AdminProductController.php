@@ -77,13 +77,26 @@ class AdminProductController
     {
         $id = $_GET['id'] ?? null;
 
-        if ($id && $_SERVER['REQUEST_METHOD'] === 'POST') {
-            $name = $_POST['name'] ?? '';
-            $price = $_POST['price'] ?? 0;
-            $sale_price = !empty($_POST['sale_price']) ? $_POST['sale_price'] : NULL;
+        if (!$id) {
+            $_SESSION['error'] = 'ID không hợp lệ';
+            header('Location: ?c=adminProduct&a=list');
+            exit;
+        }
+
+        $product = $this->productModel->getById($id);
+        if (!$product) {
+            $_SESSION['error'] = 'Sản phẩm không tồn tại';
+            header('Location: ?c=adminProduct&a=list');
+            exit;
+        }
+
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $name        = $_POST['name']        ?? '';
+            $price       = $_POST['price']       ?? 0;
+            $sale_price  = !empty($_POST['sale_price']) ? $_POST['sale_price'] : NULL;
             $description = $_POST['description'] ?? '';
             $category_id = $_POST['category_id'] ?? null;
-            $stock = $_POST['stock'] ?? 0;
+            $stock       = $_POST['stock']       ?? 0;
 
             if (empty($name) || empty($price) || !$category_id) {
                 $_SESSION['error'] = 'Vui lòng điền đầy đủ thông tin bắt buộc';
@@ -91,16 +104,9 @@ class AdminProductController
                 exit;
             }
 
-            $product = $this->productModel->getById($id);
-            if (!$product) {
-                $_SESSION['error'] = 'Sản phẩm không tồn tại';
-                header('Location: ?c=adminProduct&a=list');
-                exit;
-            }
-
             $image = $product['image'];
 
-            // Upload ảnh mới
+            // Upload ảnh mới nếu có
             if (isset($_FILES['image']) && $_FILES['image']['tmp_name']) {
                 try {
                     $image = upload_file('products', $_FILES['image']);
@@ -119,21 +125,6 @@ class AdminProductController
 
             $_SESSION['error'] = 'Cập nhật sản phẩm thất bại';
             header('Location: ?c=adminProduct&a=edit&id=' . $id);
-            $_SESSION['error'] = 'ID không hợp lệ';
-            header('Location: ?c=adminProduct&a=list');
-            exit;
-        }
-
-        if ($this->productModel->delete($id)) {
-            $_SESSION['success'] = 'Xóa sản phẩm thành công!';
-        } else {
-            $_SESSION['error'] = 'Xóa sản phẩm thất bại';
-        }
-
-        header('Location: ?c=adminProduct&a=list');
-        exit
-            $_SESSION['error'] = 'Sản phẩm không tồn tại';
-            header('Location: ?c=adminProduct&a=list');
             exit;
         }
 
