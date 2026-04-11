@@ -9,6 +9,7 @@ try {
         'auth'          => 'AuthController',
         'product'       => 'ProductController',
         'cart'          => 'CartController',
+        'order'         => 'OrderController',
         'adminProduct'  => 'AdminProductController',
         'adminUser'     => 'AdminUserController',
         default         => 'HomeController'
