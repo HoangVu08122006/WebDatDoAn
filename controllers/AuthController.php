@@ -14,7 +14,7 @@ class AuthController
     {
         return require_once PATH_VIEW . 'auth/login.php';
     }
-// sdghgsghghdfsdf
+    // sdghgsghghdfsdf
     // US01: Xử lý đăng nhập
     public function handleLogin()
     {
@@ -93,10 +93,9 @@ class AuthController
 
         $_SESSION['error'] = 'Email đã tồn tại hoặc lỗi hệ thống';
         header('Location: ?c=product&a=list');
-        exit
         exit;
     }
-
+    // xin chao
     // Đăng xuất
     public function logout()
     {
