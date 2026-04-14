@@ -40,6 +40,8 @@ class Cart extends BaseModel
         return $stmt->fetchAll();
     }
 
+    // Lấy một item cụ thể trong giỏ
+
     // Thêm item vào giỏ, nếu đã có thì tăng số lượng
     public function addItem($cart_id, $product_id, $quantity = 1)
     {
