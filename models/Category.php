@@ -10,7 +10,7 @@ class Category extends BaseModel
         $sql = "SELECT * FROM {$this->table} ORDER BY created_at DESC";
         return $this->conn->query($sql)->fetchAll();
     }
-
+    // Lấy danh mục theo tên (dùng cho tìm kiếm)
     // Lấy category theo ID
     public function getById($id)
     {

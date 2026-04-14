@@ -98,7 +98,7 @@ class Cart extends BaseModel
         $stmt = $this->conn->prepare($sql);
         return $stmt->execute(['cart_id' => $cart_id]);
     }
-
+    
     // Đếm tổng số items (dùng cho badge header)
     public function getItemCount($cart_id)
     {
@@ -121,4 +121,5 @@ class Cart extends BaseModel
         $row = $stmt->fetch();
         return (float) $row['total'];
     }
+
 }
