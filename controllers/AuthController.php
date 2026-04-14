@@ -97,6 +97,7 @@ class AuthController
     }
     // xin chao
     // Đăng xuất
+    // xin chao cac ban
     public function logout()
     {
         session_destroy();
