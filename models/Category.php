@@ -19,7 +19,7 @@ class Category extends BaseModel
         $stmt->execute(['id' => $id]);
         return $stmt->fetch();
     }
-
+    // Lấy danh mục theo tên (dùng cho tìm kiếm)
     // Thêm category
     public function add($name, $description)
     {
