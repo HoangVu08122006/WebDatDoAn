@@ -6,6 +6,8 @@ class Product extends BaseModel
 
     // Lấy tất cả sản phẩm
       // Lấy tất cả sản phẩmwsd
+
+      //sdhahdhas
     public function getAll()
     {
         $sql = "SELECT p.*, c.name as category_name FROM {$this->table} p 
