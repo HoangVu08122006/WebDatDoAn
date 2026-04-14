@@ -21,6 +21,7 @@ class BaseModel
     }
 
     // Hủy kết nối CSDL
+    // Hủy kết nối CSDL
     public function __destruct()
     {
         $this->conn = null;
