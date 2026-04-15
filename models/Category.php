@@ -4,6 +4,8 @@ class Category extends BaseModel
 {
     protected $table = 'categories';
     // Lấy tất cả danh mục
+    
+    
     // Lấy tất cả danh mục
     public function getAll()
     {
